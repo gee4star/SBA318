@@ -134,6 +134,13 @@ app.put(`/`, async (req, res)=>{
     res.send(result). status(204); 
 
 }) 
+// delete route
+app.delete(`/:id`, async (req,res) => {
+    const query = { _id: ObjectId( req.params.id) };
+    const collection = db.collection(`posts`);
+    let result = await collection.deleteOne(query);
+    res.send(result).status(200);
+});
 // listen to the port
 app.listen(PORT, ()=>{
     console.log(`Server is listening on: ${PORT}`)
