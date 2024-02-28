@@ -1,10 +1,14 @@
 // https://dev.to/alexmercedcoder/basics-of-expressjs-todo-list-tutorial-1a4d
 // used this site as a guide to create a todo list
+let ejs= require("ejs")
 // require express
 const express = require(`express`)
 // Invoke an instance of express and save return value in app
 const app = express()
+// app.set("view engine", ejs)
 let PORT = 3000
+// view template
+
 
 
 const mopFloor= function (req, res, next) {
@@ -29,8 +33,11 @@ const errorHandlingMiddleware = (err, req, res, next) => {
 };
 
 // routes
-app.get(`/test`, (req, res) => {
-    res.send(`Hello`)
+app.get(`/`, (req, res) => {
+   
+    // ejs.render(`index`, req.query)
+    res.sendFile(`/Users/germaine/Desktop/Per Scholas/rtt125/SBA318/index.html`)
+    
 })
 app.get(`/users`, (req,res) => {
     const users = [
@@ -106,9 +113,34 @@ app.get(`/posts`, (req, res) => {
         }
     ]
 })
+app.get(`/posts?author=Antoni`, (req, res) => {
+    const posts = [
+        {
+         post:`Article: This app saved me so much time!`,
+         author: `Antoni`,
+        },
+        {
+            post:`Article: Highly Reccomend`,
+            author: `Timmeko`,
+        },
+        {
+            post:`Article: This is it!`,
+            author: `Derrick`,
+        },
+        {
+            post:`Article: Yes for me`,
+            author: `Tasha`,
+        },
+        {
+            post:`Article: Organization is key`,
+            author:`Jojo`,
+        }
+    ]
+    console.log(posts)
+})
 
 // home route. send Hello World
-app.get('/', (req, res)=>{
+app.get('/Hello', (req, res)=>{
     res.send(`Hello, World!`)
     req.body
 })
@@ -134,6 +166,7 @@ app.put(`/`, async (req, res)=>{
     res.send(result). status(204); 
 
 }) 
+// route parameter
 // delete route
 app.delete(`/:id`, async (req,res) => {
     const query = { _id: ObjectId( req.params.id) };
