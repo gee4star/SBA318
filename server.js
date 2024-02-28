@@ -82,13 +82,58 @@ app.get(`/comments`, (req, res) => {
         }
     ]
 })
+app.get(`/posts`, (req, res) => {
+    const posts = [
+        {
+         post:`Article: This app saved me so much time!`,
+         author: `Antoni`,
+        },
+        {
+            post:`Article: Highly Reccomend`,
+            author: `Timmeko`,
+        },
+        {
+            post:`Article: This is it!`,
+            author: `Derrick`,
+        },
+        {
+            post:`Article: Yes for me`,
+            author: `Tasha`,
+        },
+        {
+            post:`Article: Organization is key`,
+            author:`Jojo`,
+        }
+    ]
+})
 
 // home route. send Hello World
 app.get('/', (req, res)=>{
     res.send(`Hello, World!`)
+    req.body
 })
+// post route
+app.post(`/`, async (req, res)=>{
+    console.log(`Get 'er done!`)
+    //Example from class slides MongoDB with Node
+    let collection = await db.collection(`posts`);
+    let newPost = req.body;
+    newPost.date = newDate();
+    let result = await collection. insertOne(newPost);
+    res.send(result). status(204); 
 
+})
+// put route
+app.put(`/`, async (req, res)=>{
+    console.log(`Get 'er done!`)
+    //Example from class slides MongoDB with Node
+    let collection = await db.collection(`posts`);
+    let newPost = req.body;
+    newPost.date = newDate();
+    let result = await collection. insertOne(newPost);
+    res.send(result). status(204); 
 
+}) 
 // listen to the port
 app.listen(PORT, ()=>{
     console.log(`Server is listening on: ${PORT}`)
